@@ -1,7 +1,7 @@
 {
   "name": "discord-ai-bot",
   "version": "1.0.0",
-  "types": "module",
+  "type": "module",
   "description": "",
   "main": "index.mjs",
   "scripts": {
@@ -11,11 +11,9 @@
     "discord.js": "^14.27.0",
     "dotenv": "^16.6.1",
     "firebase-admin": "^14.4.0",
-    "groq-sdk": "^0.15.0",
-    "mongoose": "^9.10.1"
+    "groq-sdk": "^0.15.0"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "license": "ISC"
 }

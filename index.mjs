@@ -2,7 +2,6 @@ import http from 'http';
 import { Client, GatewayIntentBits } from 'discord.js';
 import Groq from 'groq-sdk';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import fs from 'fs';
 
 import { initializeApp, cert } from 'firebase-admin/app';
@@ -51,20 +50,6 @@ const groq = new Groq({
 });
 
 // ==========================================
-// 4. MONGODB
-// ==========================================
-
-console.log('Connecting to MongoDB...');
-
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('Successfully connected to MongoDB!');
-    })
-    .catch((error) => {
-        console.error('MongoDB connection error:', error);
-    });
-
-// ==========================================
 // 5. FIREBASE FIRESTORE
 // ==========================================
 
@@ -90,27 +75,6 @@ try {
 } catch (error) {
     console.error('Firebase initialization error:', error);
 }
-
-// ==========================================
-// 6. MONGODB MESSAGE SCHEMA
-// ==========================================
-
-const messageSchema = new mongoose.Schema({
-    username: String,
-    userId: String,
-    content: String,
-    isBot: Boolean,
-    timestamp: {
-        type: Date,
-        default: Date.now
-    }
-});
-
-const MessageLog = mongoose.model(
-    'MessageLog',
-    messageSchema,
-    'Logs'
-);
 
 // ==========================================
 // 7. FIREBASE SAVE FUNCTION
@@ -199,7 +163,7 @@ RESPONSE RULES:
 
 EMOJI RULE:
 
-* NEVER use emojis or emoticons.
+*  use emojis or emoticons.
 
 Plain text only.
 `;
@@ -250,19 +214,6 @@ client.on('messageCreate', async (message) => {
                 console.log(
                     `Message from ${message.author.id} ${message.author.username}: ${message.cleanContent}`
                 );
-
-                // ==========================================
-                // SAVE USER MESSAGE TO MONGODB
-                // ==========================================
-
-                await MessageLog.create({
-                    username: message.author.username,
-                    userId: message.author.id,
-                    content: message.cleanContent,
-                    isBot: false
-                });
-
-                console.log('Saved user message to MongoDB');
 
                 // ==========================================
                 // SAVE USER MESSAGE TO FIREBASE
@@ -401,19 +352,7 @@ client.on('messageCreate', async (message) => {
 
                 await message.reply(replyText);
 
-                // ==========================================
-                // SAVE BOT MESSAGE TO MONGODB
-                // ==========================================
-
-                // await MessageLog.create({
-                //     username: client.user.username,
-                //     userId: client.user.id,
-                //     content: replyText,
-                //     isBot: true
-                // });
-
-                console.log('Saved bot message to MongoDB');
-
+ 
                 // ==========================================
                 // SAVE BOT MESSAGE TO FIREBASE
                 // ==========================================
