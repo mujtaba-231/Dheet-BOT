@@ -2,12 +2,13 @@
   "name": "discord-ai-bot",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
+  "description": "Discord AI Bot",
   "main": "index.mjs",
   "scripts": {
     "start": "node index.mjs"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "discord.js": "^14.27.0",
     "dotenv": "^16.6.1",
     "firebase-admin": "^14.4.0",
@@ -15,5 +16,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mujtaba-231/Dheet-BOT.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mujtaba-231/Dheet-BOT/issues"
+  },
+  "homepage": "https://github.com/mujtaba-231/Dheet-BOT#readme"
 }
